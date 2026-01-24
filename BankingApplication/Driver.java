@@ -1,6 +1,7 @@
 package BankingApplication;
 import java.util.*;
 
+
 public class Driver {
     public static void main(String[] args) {
 
@@ -17,7 +18,7 @@ public class Driver {
         System.out.println("Savings: " + user.savings);
         System.out.println("--------");
         System.out.println("1. Deposit");
-        System.out.println("3. Withdraw");
+        System.out.println("2. Withdraw");
         System.out.println("3. Account Settings");
         System.out.println("4. Exit");
         System.out.println("-------");
@@ -27,7 +28,7 @@ public class Driver {
 
         switch(userInpt){
             case 1:
-                System.out.println("Depositing");
+                depositMoney(scnr, user);
                 break;
             case 2:
                 System.out.println("Withdrawing");
@@ -58,7 +59,7 @@ public class Driver {
         int userInpt = 0;
         String inpt = "";
         do{
-        try{
+        
             System.out.println("Account Settings (" + user.userName + ")");
             System.out.println("-------------------");
             System.out.println("1. Change Username");
@@ -72,8 +73,9 @@ public class Driver {
                 case 1:
                     System.out.print("Please type new username (No Spaces): ");
                     inpt = scnr.next();
-                    System.out.println();
                     user.changeUserName(inpt);
+                    System.out.println("Username successfully changed!");
+                    System.out.println();
                     running = false;
                     break;
                 case 2:
@@ -95,13 +97,32 @@ public class Driver {
 
             }
         
-    }catch(InputMismatchException e){
-        System.out.println("----------------------------------");
-        System.out.println("Error! Please only enter a number!");
-        System.out.println("----------------------------------");
-        scnr.nextLine();
+            
+        }while(running);
     }
-}while(running);
+
+    static void depositMoney(Scanner scnr, User user){
+        int inpt = 0;
+        char choice = ' ';
+        boolean running = true;
+
+        do{
+        System.out.print("How much would you like to deposit:");
+        inpt = scnr.nextInt();
+        System.out.println();
+        System.out.println("You would like to deposit $" + inpt +", is that correct? (Y/N)");
+        choice = scnr.next().charAt(0);
+        if(Character.toLowerCase(choice)=='y'){
+            user.checking += inpt;
+            System.out.println("Deposited $" + inpt + "into checking account.\nNew balance is: $"+ user.checking);
+            running = false;
+        }else if (Character.toLowerCase(choice)=='n'){
+            continue;
+        }else{
+            System.out.println("Invalid option, please pick Y or N");
+        }
+    }while(running);
     }
+
 
 }
