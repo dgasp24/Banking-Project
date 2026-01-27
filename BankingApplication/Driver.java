@@ -5,8 +5,10 @@ import java.util.*;
 public class Driver {
     public static void main(String[] args) {
         boolean login = false;
+        boolean running = true;
         Scanner scnr = new Scanner(System.in);
         int index = 0;
+
         ArrayList<User> users = new ArrayList<User>();
 
 
@@ -16,13 +18,14 @@ public class Driver {
         users.add(new User("Sophia", "Gasper","bruh bruh", "hello", 50000, 100000, 0));
         users.add(new User("Dominique", "Gasper","fart", "whyyy", 50000, 100000, 0));
 
-
-        System.out.println("1. Login");
+        do{
+        System.out.println("1. Login: ");
         System.out.println("Username: ");
         String userName = scnr.next();
         System.out.println("Password: ");
         String password = scnr.next();
 
+        //Check Credentials
         for(User user: users){
             if(userName.equals(user.userName) && password.equals(user.password)){
                 System.out.println("Login Succesful");
@@ -31,12 +34,19 @@ public class Driver {
                 break;
             }
         }
-    
-        if(login){
+
+         if(login){
+            //Function for main menu
             MainMenu(scnr, users, index);
+            running = false;
         }else{
             System.out.println("Invalid Login");
         }
+
+        }while(running);
+    
+
+
 
         scnr.close();
     }
