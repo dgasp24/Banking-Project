@@ -4,13 +4,10 @@ import java.util.*;
 
 public class Driver {
     public static void main(String[] args) {
-        boolean login = false;
         boolean running = true;
+        int inpt = 0;
         Scanner scnr = new Scanner(System.in);
-        int index = 0;
-
         ArrayList<User> users = new ArrayList<User>();
-
 
         users.add(new User("Dominic", "Gasper","domBomb", "Astros2005", 50000, 100000, 0));
         users.add(new User("Dom", "Gas","bartbat", "password", 50000, 100000, 0));
@@ -18,37 +15,114 @@ public class Driver {
         users.add(new User("Sophia", "Gasper","bruh bruh", "hello", 50000, 100000, 0));
         users.add(new User("Dominique", "Gasper","fart", "whyyy", 50000, 100000, 0));
 
+
         do{
-        System.out.println("1. Login: ");
-        System.out.println("Username: ");
-        String userName = scnr.next();
-        System.out.println("Password: ");
-        String password = scnr.next();
+        try{   
+        System.out.println("Welcome to the Bank");
+        System.out.println("1. Login ");
+        System.out.println("2. Create Account");
+        System.out.println("3. Exit");
+        inpt = scnr.nextInt();
 
-        //Check Credentials
-        for(User user: users){
-            if(userName.equals(user.userName) && password.equals(user.password)){
-                System.out.println("Login Succesful");
-                index = users.indexOf(user);
-                login = true;
+        switch(inpt){
+            case 1://Logging in
+                clearConsole();
+                loggingIn(scnr, users);
                 break;
+            case 2://Account Creation
+                clearConsole();
+                createAccount(scnr,users);
+                break;
+            case 3://Exiting
+                running = false;
+                break;
+            default:
+                System.out.println("Please choose between 1-3");
             }
-        }
-
-         if(login){
-            //Function for main menu
-            MainMenu(scnr, users, index);
-            running = false;
-        }else{
-            System.out.println("Invalid Login");
+        }catch(InputMismatchException e){
+        clearConsole();
+        System.out.println("-------------------------");
+        System.out.println("Please only type numbers!");
+        System.out.println("-------------------------");
+        scnr.nextLine();
+        continue;
         }
 
         }while(running);
-    
-
-
 
         scnr.close();
+    }
+
+    //Logging into Account
+    static void loggingIn(Scanner scnr,ArrayList<User> users){
+            int index = 0;
+            boolean login = false;
+
+            
+            System.out.println("Username: ");
+            String userName = scnr.next();
+            System.out.println("Password: ");
+            String password = scnr.next();
+
+            //Check Credentials
+            for(User u: users){
+                if(userName.equals(u.userName) && password.equals(u.password)){
+                    System.out.println("Login Succesful");
+                    index = users.indexOf(u);
+                    login = true;
+                    break;
+                }
+            }
+
+            if(login){
+                //Function for main menu
+                clearConsole();
+                MainMenu(scnr, users, index);
+            }else{
+                clearConsole();
+                System.out.println("Invalid Login, please try again");
+            }
+    }
+
+    //Creating Account
+    static void createAccount(Scanner scnr,ArrayList<User> users){
+        String firstName = "";
+        String lastName = "";
+        String userName = "";
+        String password = "";
+        boolean running = true;
+
+        try{
+        System.out.println("First Name: ");
+        firstName = scnr.next();
+        System.out.println("Last Name: ");
+        lastName = scnr.next();
+
+        //Checking to make sure there are no duplicate usernames
+        do{
+        System.out.println("Username(No Spaces): ");
+        userName = scnr.next();
+        for(User u: users){
+                if(userName.toLowerCase().equals(u.userName.toLowerCase())){
+                    System.out.println("Username already exists, please try again");
+                    break;
+                }else{
+                    running = false;
+                }
+            }
+        }while(running);
+
+        System.out.println("Password(No Spaces): ");
+        password = scnr.next();
+
+        //Checking to make sure user only inputs letters and not numbers    
+        }catch(InputMismatchException e){
+            System.out.println("Please only enter letters!");
+        }
+
+        clearConsole();
+        users.add(new User(firstName, lastName, userName, password, 0, 0, 1000));
+        System.out.println("Account Created! Each account will get $1000 to start!");
     }
     
 
@@ -57,10 +131,11 @@ public class Driver {
         int userInpt = 0;
         boolean running = true;
 
-
         do{
-        try{ 
-        System.out.println("Welcome " + users.get(index).FirstName +"!");
+        try{
+        
+        System.out.println("--------"); 
+        System.out.println("Welcome " + users.get(index).FirstName);
         System.out.println("--------");
         if(users.get(index).cash > 0){
             System.out.println("Cash: $" + users.get(index).cash);
@@ -78,27 +153,33 @@ public class Driver {
         userInpt = scnr.nextInt();
 
         switch(userInpt){
-            case 1:
+            case 1://Depositing
+                clearConsole();
                 depositMoney(scnr, users.get(index));
                 break;
-            case 2:
+            case 2://Withdrawing
+                clearConsole();
                 withdrawMoney(scnr, users.get(index));
                 break;
-            case 3:
-                
+            case 3://Account Manager
+                clearConsole();
                 AccountManager(scnr, users.get(index));
                 break;
             case 4:
                 running = false;
+                clearConsole();
                 System.out.println("Goodbye!");
                 break;
             default:
+                clearConsole();
                 System.out.println("--------------------------");
                 System.out.println("Please choose between 1-4!");
                 System.out.println("--------------------------");
+                break;
         }
             
         }catch(InputMismatchException e){
+            clearConsole();
             System.out.println("----------------------------------");
             System.out.println("Error! Please try again!");
             System.out.println("----------------------------------");
@@ -107,7 +188,7 @@ public class Driver {
         }
         }while(running);
     }
-    
+
 
     //Acount Manager
     static void AccountManager(Scanner scnr, User user){
@@ -126,7 +207,7 @@ public class Driver {
             userInpt = scnr.nextInt();
 
             switch(userInpt){
-                case 1:
+                case 1://New Username
                     System.out.print("Please type new username (No Spaces): ");
                     inpt = scnr.next();
                     user.changeUserName(inpt);
@@ -134,7 +215,7 @@ public class Driver {
                     System.out.println();
                     running = false;
                     break;
-                case 2:
+                case 2://New Password
                     System.out.println("Please enter current password: ");
                     inpt = scnr.next();
                     if(!(inpt.equals(user.password))){
@@ -148,6 +229,7 @@ public class Driver {
                     break;
                 case 3:
                     running = false;
+                    clearConsole();
                     break;
 
 
@@ -170,6 +252,8 @@ public class Driver {
         System.out.println();
         System.out.println("You would like to deposit $" + inpt +", is that correct? (Y/N)");
         choice = scnr.next().charAt(0);
+
+        //Checks to see if the amount of money the user is depositing isn't more than what they have
         if(!(inpt > user.cash)){
         if(Character.toLowerCase(choice)=='y'){
             user.cash -= inpt;
@@ -200,6 +284,8 @@ public class Driver {
         System.out.println();
         System.out.println("You would like to withdraw $" + inpt +", is that correct? (Y/N)");
         choice = scnr.next().charAt(0);
+
+        //Checks to see if the amount of money the user is withdrawing isn't more than what they have
         if(!(inpt > user.checking)){
         if(Character.toLowerCase(choice)=='y'){
             user.checking -= inpt;
@@ -215,6 +301,12 @@ public class Driver {
         System.out.println("Insufficient funds, please try again.");
     }
     }while(running);
+    }
+
+    //Clears console for cleaner look
+    static void clearConsole(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     }
