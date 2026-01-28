@@ -12,7 +12,7 @@ public class Driver {
         users.add(new User("Dominic", "Gasper","domBomb", "Astros2005", 50000, 100000, 0));
         users.add(new User("Dom", "Gas","bartbat", "password", 50000, 100000, 0));
         users.add(new User("Shop", "Gasper","flyfat", "notpassword", 50000, 100000, 0));
-        users.add(new User("Sophia", "Gasper","bruh bruh", "hello", 50000, 100000, 0));
+        users.add(new User("Sophia", "Gasper","bruhbruh", "hello", 50000, 100000, 0));
         users.add(new User("Dominique", "Gasper","fart", "whyyy", 50000, 100000, 0));
 
 
@@ -134,20 +134,19 @@ public class Driver {
         do{
         try{
         
-        System.out.println("--------"); 
         System.out.println("Welcome " + users.get(index).FirstName);
-        System.out.println("--------");
+        System.out.println("-------------------");
         if(users.get(index).cash > 0){
             System.out.println("Cash: $" + users.get(index).cash);
         }
         System.out.println("Checkings: $" + users.get(index).checking);
         System.out.println("Savings: $" + users.get(index).savings);
-        System.out.println("--------");
+        System.out.println("-------------------");
         System.out.println("1. Deposit");
         System.out.println("2. Withdraw");
         System.out.println("3. Account Settings");
         System.out.println("4. Logout");
-        System.out.println("-------");
+        System.out.println("-------------------");
 
 
         userInpt = scnr.nextInt();
@@ -174,14 +173,14 @@ public class Driver {
                 clearConsole();
                 System.out.println("--------------------------");
                 System.out.println("Please choose between 1-4!");
-                System.out.println("--------------------------");
+                 System.out.println("--------------------------");
                 break;
         }
             
         }catch(InputMismatchException e){
             clearConsole();
             System.out.println("----------------------------------");
-            System.out.println("Error! Please try again!");
+            System.out.println("Error! Please only type numbers!");
             System.out.println("----------------------------------");
             scnr.nextLine();
             continue;
@@ -202,7 +201,7 @@ public class Driver {
             System.out.println("1. Change Username");
             System.out.println("2. Change Password");
             System.out.println("3. Back");
-            System.out.println("-------");
+            System.out.println("-------------------");
 
             userInpt = scnr.nextInt();
 
@@ -216,6 +215,7 @@ public class Driver {
                     running = false;
                     break;
                 case 2://New Password
+                    clearConsole();
                     System.out.println("Please enter current password: ");
                     inpt = scnr.next();
                     if(!(inpt.equals(user.password))){
@@ -224,6 +224,7 @@ public class Driver {
                         System.out.println("New Password: ");
                         inpt = scnr.next();
                         user.changePassword(inpt);
+                        clearConsole();
                         System.out.println("Password successfully changed!");
                     }
                     break;
@@ -258,6 +259,7 @@ public class Driver {
         if(Character.toLowerCase(choice)=='y'){
             user.cash -= inpt;
             user.checking += inpt;
+            clearConsole();
             System.out.println("Deposited $" + inpt + " into checking account.\nNew balance is: $"+ user.checking);
             running = false;
         }else if (Character.toLowerCase(choice)=='n'){
@@ -290,6 +292,7 @@ public class Driver {
         if(Character.toLowerCase(choice)=='y'){
             user.checking -= inpt;
             user.cash += inpt;
+            clearConsole();
             System.out.println("Withdrew $" + inpt + " from checking account.\nNew balance is: $"+ user.checking);
             running = false;
         }else if (Character.toLowerCase(choice)=='n'){
