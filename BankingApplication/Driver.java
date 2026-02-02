@@ -1,7 +1,5 @@
 package BankingApplication;
 import java.util.*;
-import java.io.*;
-
 
 public class Driver {
     public static void main(String[] args) {
@@ -9,8 +7,9 @@ public class Driver {
         int inpt = 0;
         Scanner scnr = new Scanner(System.in);
         ArrayList<User> users = new ArrayList<User>();
-
-        userLoader(users);
+        file file = new file("BankingApplication/userFile.csv");
+        file.Load(users);
+        
 
         do{
         try{   
@@ -118,7 +117,7 @@ public class Driver {
 
         clearConsole();
         users.add(new User(firstName, lastName, userName, password, 0, 0, 1000));
-        userWriter(firstName, lastName, userName, password, 0, 0, 1000);
+        file.write(firstName, lastName, userName, password, 0, 0, 1000);
         System.out.println("Account Created! Each account will get $1000 to start!");
     }
     
@@ -303,31 +302,7 @@ public class Driver {
     }while(running);
     }
 
-    static void userLoader(ArrayList<User> users){
 
-        try(BufferedReader br = new BufferedReader(new FileReader("BankingApplication/userFile.csv"))){
-            String line;
-            while((line = br.readLine()) != null){
-                String[] inpt = line.split(",");
-                users.add(new User(inpt[0], inpt[1], inpt[2], inpt[3], Integer.parseInt(inpt[4]), Integer.parseInt(inpt[5]), Integer.parseInt(inpt[6])));
-            }
-
-        }catch(IOException e){
-            System.out.println("Cannot access file");
-        }
-    }
-
-    static void userWriter(String firstName, String lastName, String userName, String password, int checkings, int savings, int cash){
-
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter("BankingApplication/userFile.csv", true))){
-            String line = firstName + "," + lastName + "," + userName + "," + password + "," + checkings + "," + savings + "," + cash;
-            bw.newLine(); 
-            bw.append(line);
-
-        }catch(IOException e){
-            System.out.println("Cannot access file");
-        }
-    }
 
 
     //Clears console for cleaner look
