@@ -2,15 +2,15 @@ package BankingApplication;
 
 public class User {
     
-    String FirstName = "John";
-    String LastName = "Doe";
-    String userName = "";
-    String password = "";
-    int checking = 0;
-    int savings = 0;
-    int cash = 0;
+    public String FirstName = "John";
+    public String LastName = "Doe";
+    public String userName = "";
+    public String password = "";
+    public int checking = 0;
+    public int savings = 0;
+    public int cash = 0;
 
-    User(String FirstName, String LastName, String userName, String password, int checking, int savings, int cash){
+    public User(String FirstName, String LastName, String userName, String password, int checking, int savings, int cash){
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.userName = userName;
@@ -20,11 +20,11 @@ public class User {
         this.cash = cash;
     }
 
-    void changeUserName(String userName){
+    public void changeUserName(String userName){
         this.userName = userName;
     }
 
-    void changePassword(String password){
+    public void changePassword(String password){
         this.password = password;
     }
 

@@ -2,10 +2,10 @@ package BankingApplication;
 import java.io.*;
 import java.util.*;
 
-public class file {
+public class FileService {
     String FileName = "";
 
-    public file(String FileName){
+    public FileService(String FileName){
         this.FileName = FileName;
     }
 
@@ -23,7 +23,7 @@ public class file {
         }
     }
 
-    static void write(String firstName, String lastName, String userName, String password, int checkings, int savings, int cash){
+    public static void write(String firstName, String lastName, String userName, String password, int checkings, int savings, int cash){
 
         try(BufferedWriter bw = new BufferedWriter(new FileWriter("BankingApplication/userFile.csv", true))){
             String line = firstName + "," + lastName + "," + userName + "," + password + "," + checkings + "," + savings + "," + cash;
