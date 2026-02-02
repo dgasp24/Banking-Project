@@ -7,10 +7,12 @@ public class bankProgram {
     int inpt = 0;
     Scanner scnr;
     ArrayList<User> users;
+    file file;
 
-    public bankProgram(Scanner scnr, ArrayList<User> users){
+    public bankProgram(Scanner scnr, ArrayList<User> users, file file){
         this.scnr = scnr;
         this.users = users;
+        this.file = file;
 
     }
 
@@ -84,18 +86,34 @@ public class bankProgram {
     }
 
     //Creating Account
-    static void createAccount(Scanner scnr,ArrayList<User> users){
+    void createAccount(Scanner scnr,ArrayList<User> users){
         String firstName = "";
         String lastName = "";
         String userName = "";
         String password = "";
         boolean running = true;
 
-        try{
+        while(true){
         System.out.println("First Name: ");
         firstName = scnr.next();
-        System.out.println("Last Name: ");
-        lastName = scnr.next();
+        if(firstName.matches("[a-zA-Z]+")){
+                break;
+            }else{
+                System.out.println("Please only enter letters!");
+            }
+        }
+
+        while(true){
+            System.out.println("Last Name: ");
+            lastName = scnr.next();
+
+            if(lastName.matches("[a-zA-Z]+")){
+                break;
+            }else{
+                System.out.println("Please only enter letters!");
+            }
+        }
+        
 
         //Checking to make sure there are no duplicate usernames
         do{
@@ -114,11 +132,6 @@ public class bankProgram {
 
         System.out.println("Password(No Spaces): ");
         password = scnr.next();
-
-        //Checking to make sure user only inputs letters and not numbers    
-        }catch(InputMismatchException e){
-            System.out.println("Please only enter letters!");
-        }
 
         clearConsole();
         users.add(new User(firstName, lastName, userName, password, 0, 0, 1000));

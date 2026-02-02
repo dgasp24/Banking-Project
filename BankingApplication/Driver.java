@@ -6,7 +6,7 @@ public class Driver {
         Scanner scnr = new Scanner(System.in);
         ArrayList<User> users = new ArrayList<User>();
         file file = new file("BankingApplication/userFile.csv");
-        bankProgram bP = new bankProgram(scnr, users);
+        bankProgram bP = new bankProgram(scnr, users,file);
 
         //Loads csv file
         file.Load(users);
