@@ -86,8 +86,9 @@ public class BankProgram {
         System.out.println("-------------------");
         System.out.println("1. Deposit");
         System.out.println("2. Withdraw");
-        System.out.println("3. Account Settings");
-        System.out.println("4. Logout");
+        System.out.println("3. Pay Someone");
+        System.out.println("4. Account Settings");
+        System.out.println("5. Logout");
         System.out.println("-------------------");
 
 
@@ -104,9 +105,13 @@ public class BankProgram {
                 break;
             case 3://Account Manager
                 ConsoleUtils.clearConsole();
+                MoneyService.payment(scnr, users.get(index), users);
+                break;
+            case 4://Account Manager
+                ConsoleUtils.clearConsole();
                 UserService.AccountManager(scnr, users.get(index));
                 break;
-            case 4:
+            case 5:
                 running = false;
                 ConsoleUtils.clearConsole();
                 System.out.println("Goodbye!");

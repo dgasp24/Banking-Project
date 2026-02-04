@@ -6,11 +6,11 @@ public class User {
     public String LastName = "Doe";
     public String userName = "";
     public String password = "";
-    public int checking = 0;
-    public int savings = 0;
-    public int cash = 0;
+    public double checking = 0;
+    public double savings = 0;
+    public double cash = 0;
 
-    public User(String FirstName, String LastName, String userName, String password, int checking, int savings, int cash){
+    public User(String FirstName, String LastName, String userName, String password, double checking, double savings, double cash){
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.userName = userName;

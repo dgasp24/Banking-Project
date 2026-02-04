@@ -13,6 +13,7 @@ public class Driver {
         //Starts the banking program
         bP.run();
 
+        file.save(users);
         scnr.close();
     }
     }

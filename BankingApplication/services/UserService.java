@@ -27,7 +27,7 @@ public class UserService {
             return -1;
     }
 
-    //Creating Account
+    //Creating Account---------------------------------------------------
     public static void createAccount(Scanner scnr,ArrayList<User> users){
         String firstName = "";
         String lastName = "";
@@ -81,7 +81,7 @@ public class UserService {
         System.out.println("Account Created! Each account will get $1000 to start!");
     }
 
-    //Acount Manager
+    //Acount Manager---------------------------------------
     public static void AccountManager(Scanner scnr, User user){
         boolean running = true;
         int userInpt = 0;
@@ -130,5 +130,15 @@ public class UserService {
         
             
         }while(running);
+    }
+
+    public static int findUser(ArrayList<User> users, String userName){
+        for (int i = 0; i < users.size(); i++) {
+                User u = users.get(i);
+                if (u.userName.equalsIgnoreCase(userName)) {
+                    return i; // success
+                }
+            }
+        return -1;
     }
 }
