@@ -81,14 +81,15 @@ public class BankProgram {
         if(users.get(index).cash > 0){
             System.out.println("Cash: $" + users.get(index).cash);
         }
-        System.out.println("Checkings: $" + users.get(index).checking);
-        System.out.println("Savings: $" + users.get(index).savings);
+        System.out.println("Checkings: $" + MathUtils.roundUp(users.get(index).checking));
+        System.out.println("Savings: $" + MathUtils.roundUp(users.get(index).savings));
         System.out.println("-------------------");
         System.out.println("1. Deposit");
         System.out.println("2. Withdraw");
         System.out.println("3. Pay Someone");
-        System.out.println("4. Account Settings");
-        System.out.println("5. Logout");
+        System.out.println("4. Transfer");
+        System.out.println("5. Account Settings");
+        System.out.println("6. Logout");
         System.out.println("-------------------");
 
 
@@ -109,9 +110,13 @@ public class BankProgram {
                 break;
             case 4://Account Manager
                 ConsoleUtils.clearConsole();
+                MoneyService.transfer(scnr, users.get(index));
+                break;
+            case 5://Account Manager
+                ConsoleUtils.clearConsole();
                 UserService.AccountManager(scnr, users.get(index));
                 break;
-            case 5:
+            case 6:
                 running = false;
                 ConsoleUtils.clearConsole();
                 System.out.println("Goodbye!");

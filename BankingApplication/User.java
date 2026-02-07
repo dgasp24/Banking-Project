@@ -1,5 +1,7 @@
 package BankingApplication;
 
+import BankingApplication.utilities.MathUtils;
+
 public class User {
     
     public String FirstName = "John";

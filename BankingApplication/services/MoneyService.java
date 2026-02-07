@@ -92,6 +92,7 @@ public class MoneyService {
     }while(running);
     }
 
+    //FOR PAYING ANOTHER USER
     public static void payment(Scanner scnr, User user, ArrayList<User> users){
         String userName = "";
         int index = 0;
@@ -159,8 +160,85 @@ public class MoneyService {
      }
     }
 
-        
-        
-    }
-    
 
+    //TRANSFERING BETWEEN ACCOUNTS
+    public static void transfer(Scanner scnr, User user){
+        int inpt = 0;
+        boolean running = true;
+        double amount = 0;
+        char choice = ' ';
+        System.out.println("Where would you like to transfer from?\n1. Checkings\n2. Savings");
+        inpt = scnr.nextInt();
+
+        while(running){
+        System.out.print("How much would you like to transfer:");
+        try{
+            amount = scnr.nextDouble();
+            amount = MathUtils.roundUp(amount);
+
+        }catch(InputMismatchException e){
+            ConsoleUtils.clearConsole();
+            System.out.println("Please enter a valid number");
+            scnr.nextLine();
+            continue;
+        }
+
+        if(amount < 0){
+            ConsoleUtils.clearConsole();
+            System.out.println("Transfers must be greater than 0.");
+            continue;
+        }
+
+        if(inpt == 1){//FOR TRANSFER FROM CHECKINGS TO SAVINGS
+        ConsoleUtils.clearConsole();
+        System.out.println("You would like to transfer $" + amount +" to your savings account, is that correct? (Y/N)");
+        choice = scnr.next().toLowerCase().charAt(0);
+
+        if(amount > user.checking){
+            ConsoleUtils.clearConsole();
+            System.out.println("Insufficient Funds.");
+            continue;
+        }
+
+        
+        if(choice=='y'){
+            user.checking -= amount;
+            user.savings += amount;
+            ConsoleUtils.clearConsole();
+            System.out.println("Transfered $" + amount + " into savings account.\nCheckings: $"+ user.checking +"\nSavings: $" + user.savings);
+            running = false;
+        }else if (choice !='n'){
+            System.out.println("Invalid option, please pick Y or N");
+            continue;
+        }
+
+    }else if (inpt == 2){//FOR TRANSFER FROM SAVINGS TO CHECKINGS
+        ConsoleUtils.clearConsole();
+        System.out.println("You would like to transfer $" + amount +" to your checkings account, is that correct? (Y/N)");
+        choice = scnr.next().toLowerCase().charAt(0);
+
+        if(amount > user.savings){
+            ConsoleUtils.clearConsole();
+            System.out.println("Insufficient Funds.");
+            continue;
+        }
+
+        
+        if(choice=='y'){
+            user.savings -= amount;
+            user.checking += amount;
+            ConsoleUtils.clearConsole();
+            System.out.println("Transfered $" + amount + " into savings account.\nCheckings: $"+ user.checking +"\nSavings: $" + user.savings);
+            running = false;
+        }else if (choice !='n'){
+            System.out.println("Invalid option, please pick Y or N");
+            continue;
+        }else{
+            System.out.println("Please choose either 1 or 2");
+        }
+    }
+
+    }
+        
+        }
+    }
